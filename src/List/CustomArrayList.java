@@ -1,28 +1,28 @@
 package List;
 
-public class CustomList<T> {
+public class CustomArrayList<E> {
     private Object[] data;
     private int size;
     private final int DEFAULT_CAPACITY = 10;
 
-    public CustomList() {
+    public CustomArrayList() {
         this.data = new Object[DEFAULT_CAPACITY];
         this.size = 0;
     }
 
-    public CustomList(int capacity) {
+    public CustomArrayList(int capacity) {
         this.data = new Object[capacity > 0 ? capacity : DEFAULT_CAPACITY];
         this.size = 0;
     }
 
-    public void add(T o) {
+    public void add(E o) {
         if (this.size == this.data.length) {
             this.grow();
         }
         this.data[size++] = o;
     }
 
-    public void add(int index, T o) {
+    public void add(int index, E o) {
         if (this.checkIndex(index)) {
             this.shiftForward(index);
             this.data[index] = o;
@@ -38,11 +38,11 @@ public class CustomList<T> {
         }
     }
 
-    public boolean contains(T o) {
+    public boolean contains(E o) {
         return indexOf(o) >= 0;
     }
 
-    public int indexOf(T o) {
+    public int indexOf(E o) {
         int index = -1;
         for (int i = 0; i < this.data.length; i++) {
             if (o.equals(this.data[i])) {
@@ -66,7 +66,7 @@ public class CustomList<T> {
         }
     }
 
-    public void set(int index, T o) {
+    public void set(int index, E o) {
         if (this.checkIndex(index)) {
             this.data[index] = o;
         } else {
@@ -85,7 +85,7 @@ public class CustomList<T> {
         }
     }
 
-    public void remove(T o) {
+    public void remove(E o) {
         this.remove(this.indexOf(o));
     }
 

@@ -2,10 +2,10 @@ package List;
 
 import java.util.Random;
 
-public class Main {
+public class TestCustomArrayList {
     public static void main(String[] args) {
         Random random = new Random();
-        CustomList<String> data = new CustomList<>();
+        CustomArrayList<String> data = new CustomArrayList<>();
         for (int i = 0; i < 10; i++) {
             data.add("Word" + random.nextInt(100));
         }
