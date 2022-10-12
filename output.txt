@@ -1,0 +1,11 @@
+docnm489745236 - Invalid: invalid number length, not starts with docnum or contract
+cotract789 54231 - Invalid: number contains invalid characters, invalid number length, not starts with docnum or contract
+docnum489745236 - Valid
+contract78954231 - Invalid: invalid number length
+contract4798512 - Valid
+docnum587954123 - Valid
+cotract789_54231 - Invalid: number contains invalid characters, invalid number length, not starts with docnum or contract
+cotract789-54231 - Invalid: number contains invalid characters, invalid number length, not starts with docnum or contract
+contract789 54231 - Invalid: number contains invalid characters, invalid number length
+jfir75ufnd83jfyrg - Invalid: invalid number length, not starts with docnum or contract
+cotract789/54231 - Invalid: number contains invalid characters, invalid number length, not starts with docnum or contract
