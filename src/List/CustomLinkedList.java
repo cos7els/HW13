@@ -23,6 +23,10 @@ public class CustomLinkedList<E> {
         size++;
     }
 
+    public void addLast(E e) {
+        add(e);
+    }
+
     public void addFirst(E e) {
         Node<E> element = new Node<>(null, e, first);
         if (first == null) {
@@ -35,20 +39,97 @@ public class CustomLinkedList<E> {
         size++;
     }
 
-    public E get(int index) {
-        Node<E> ref;
-        if (index < size / 2) {
-            ref = first;
-            for (int i = 0; i < index; i++) {
-                ref = ref.next;
-            }
+    public void add(int index, E e) {
+        if (index == 0) {
+            addFirst(e);
+        } else if (index == size) {
+            addLast(e);
         } else {
-            ref = last;
-            for (int i = size - 1; i > index; i--) {
-                ref = ref.prev;
-            }
+            Node<E> n = getNode(index);
+            Node<E> p = getNode(--index);
+            Node<E> element = new Node<>(p, e, n);
+            p.next = element;
+            n.prev = element;
+            size++;
         }
-        return ref.value;
+    }
+
+    public E get(int index) {
+        return getNode(index).value;
+    }
+
+    public E getFirst() {
+        return first.value;
+    }
+
+    public E getLast() {
+        return last.value;
+    }
+
+    public int indexOf(E e) {
+        int index = -1;
+        Node<E> ref = first;
+        for (int i = 0; i < size; i++) {
+            if (ref.value.equals(e)) {
+                index = i;
+                break;
+            }
+            ref = ref.next;
+        }
+        return index;
+    }
+
+    public int lastIndexOf(E e) {
+        int index = -1;
+        Node<E> ref = last;
+        for (int i = size - 1; i >= 0; i--) {
+            if (ref.value.equals(e)) {
+                index = i;
+                break;
+            }
+            ref = ref.prev;
+        }
+        return index;
+    }
+
+    public void set(int index, E e) {
+        Node<E> ref = getNode(index);
+        ref.value = e;
+    }
+
+    public void remove(int index) {
+        Node<E> ref = getNode(index);
+        if (size == 1) {
+            first = null;
+            last = null;
+        } else if (first == ref) {
+            first = ref.next;
+            first.prev = null;
+        } else if (last == ref) {
+            last = ref.prev;
+            last.next = null;
+        } else {
+            ref.prev.next = ref.next;
+            ref.next.prev = ref.prev;
+        }
+        ref.next = null;
+        ref.prev = null;
+        ref.value = null;
+        size--;
+    }
+
+    public void clear() {
+        Node<E> c = first;
+        while (c != null) {
+            Node<E> n = c.next;
+            c.prev = null;
+            c.next = null;
+            c.value = null;
+            c = n;
+        }
+        first = null;
+        last = null;
+        size = 0;
     }
 
     public int size() {
@@ -72,6 +153,26 @@ public class CustomLinkedList<E> {
 
     private boolean checkIndex(int index) {
         return index < size && index >= 0;
+    }
+
+    private Node<E> getNode(int index) {
+        Node<E> ref;
+        if (checkIndex(index)) {
+            if (index < size / 2) {
+                ref = first;
+                for (int i = 0; i < index; i++) {
+                    ref = ref.next;
+                }
+            } else {
+                ref = last;
+                for (int i = size - 1; i > index; i--) {
+                    ref = ref.prev;
+                }
+            }
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+        return ref;
     }
 
     private static class Node<E> {

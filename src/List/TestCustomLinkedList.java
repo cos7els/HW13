@@ -7,15 +7,21 @@ public class TestCustomLinkedList {
     public static void main(String[] args) {
         CustomLinkedList<Integer> list = new CustomLinkedList<>();
         Random random = new Random();
-        /*for (int i = 0; i < 10; i++) {
-            list.add(random.nextInt(100));
+        for (int i = 0; i < 10; i++) {
+            Integer value = random.nextInt(100);
+            System.out.print(value+", ");
+            list.add(value);
         }
-        System.out.println(list);*/
-        list.addFirst(100);
-        list.addFirst(300);
-        list.add(200);
+        System.out.println();
         System.out.println(list);
-        System.out.println(list.get(1));
+        System.out.println(list.size());
+        System.out.println(list + " " +list.size());
+        list.add(list.size(), 666666666);
+        System.out.println(list + " " +list.size());
+        list.add(list.size() - 1, 666666666);
+        System.out.println(list + " " +list.size());
+        System.out.println(list.indexOf(666666666));
+        System.out.println(list.lastIndexOf(0));
 
         /*LinkedList<String> list2 = new LinkedList<>();
         list2.addLast("Hello");
