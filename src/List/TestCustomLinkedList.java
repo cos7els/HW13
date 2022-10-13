@@ -1,11 +1,11 @@
 package List;
 
-import java.util.LinkedList;
 import java.util.Random;
 
 public class TestCustomLinkedList {
     public static void main(String[] args) {
         CustomLinkedList<Integer> list = new CustomLinkedList<>();
+        System.out.println(list);
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Integer value = random.nextInt(100);

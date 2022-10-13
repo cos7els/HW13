@@ -169,14 +169,10 @@ public class CustomLinkedList<E> {
     @Override
     public String toString() {
         Node<E> ref = first;
-        StringBuilder result = new StringBuilder("[");
-        if (ref == null) {
-            return "[]";
-        } else {
-            do {
-                result.append(ref.value).append(ref.next != null ? ", " : "]");
-                ref = ref.next;
-            } while (ref != null);
+        StringBuilder result = new StringBuilder(ref != null ? "[" : "[]");
+        while (ref != null) {
+            result.append(ref.value).append(ref.next != null ? ", " : "]");
+            ref = ref.next;
         }
         return result.toString();
     }
@@ -209,7 +205,7 @@ public class CustomLinkedList<E> {
         private E value;
         private Node<E> next;
 
-        public Node(Node<E> prev, E value, Node<E> next) {
+        Node(Node<E> prev, E value, Node<E> next) {
             this.prev = prev;
             this.value = value;
             this.next = next;
