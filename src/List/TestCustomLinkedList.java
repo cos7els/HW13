@@ -22,6 +22,9 @@ public class TestCustomLinkedList {
         System.out.println(list + " " +list.size());
         System.out.println(list.indexOf(666666666));
         System.out.println(list.lastIndexOf(0));
+        CustomLinkedList<Integer> list2 = new CustomLinkedList<>();
+        list2.add(10000);
+        System.out.println(list2.get(0));
 
         /*LinkedList<String> list2 = new LinkedList<>();
         list2.addLast("Hello");

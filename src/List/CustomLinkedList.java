@@ -5,29 +5,13 @@ public class CustomLinkedList<E> {
     private Node<E> last;
     private int size;
 
-    public CustomLinkedList(){
+    public CustomLinkedList() {
         first = null;
         last = null;
         size = 0;
     }
 
-    public void add(E e) {
-        Node<E> element = new Node<>(last, e, null);
-        if (last == null) {
-            first = element;
-        } else {
-            last.next = element;
-            element.prev = last;
-        }
-        last = element;
-        size++;
-    }
-
-    public void addLast(E e) {
-        add(e);
-    }
-
-    public void addFirst(E e) {
+    private void linkFirst(E e) {
         Node<E> element = new Node<>(null, e, first);
         if (first == null) {
             last = element;
@@ -39,31 +23,77 @@ public class CustomLinkedList<E> {
         size++;
     }
 
-    public void add(int index, E e) {
-        if (index == 0) {
-            addFirst(e);
-        } else if (index == size) {
-            addLast(e);
-        } else {
-            Node<E> n = getNode(index);
-            Node<E> p = getNode(--index);
-            Node<E> element = new Node<>(p, e, n);
-            p.next = element;
-            n.prev = element;
-            size++;
-        }
+    private void linkBefore(int index, E e) {
+        checkIndex(index);
+        Node<E> n = getNode(index);
+        Node<E> p = getNode(--index);
+        Node<E> element = new Node<>(p, e, n);
+        p.next = element;
+        n.prev = element;
+        size++;
     }
 
-    public E get(int index) {
-        return getNode(index).value;
+    private void linkLast(E e) {
+        Node<E> element = new Node<>(last, e, null);
+        if (last == null) {
+            first = element;
+        } else {
+            last.next = element;
+            element.prev = last;
+        }
+        last = element;
+        size++;
+    }
+
+    public boolean add(E e) {
+        linkLast(e);
+        return true;
+    }
+
+    public boolean addLast(E e) {
+        linkLast(e);
+        return true;
+    }
+
+    public boolean addFirst(E e) {
+        linkFirst(e);
+        return true;
+    }
+
+    public boolean add(int index, E e) {
+        if (index == 0) {
+            linkFirst(e);
+        } else if (index == size) {
+            linkLast(e);
+        } else {
+            linkBefore(index, e);
+        }
+        return true;
     }
 
     public E getFirst() {
         return first.value;
     }
 
+    public E get(int index) {
+        return getNode(index).value;
+    }
+
     public E getLast() {
         return last.value;
+    }
+
+    public boolean contains(E e) {
+        Node<E> ref = first;
+        boolean result = false;
+        while (ref != null) {
+            if (ref.value.equals(e)) {
+                result = true;
+                break;
+            }
+            ref = ref.next;
+        }
+        return result;
     }
 
     public int indexOf(E e) {
@@ -151,26 +181,25 @@ public class CustomLinkedList<E> {
         return result.toString();
     }
 
-    private boolean checkIndex(int index) {
-        return index < size && index >= 0;
+    private void checkIndex(int index) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     private Node<E> getNode(int index) {
+        checkIndex(index);
         Node<E> ref;
-        if (checkIndex(index)) {
-            if (index < size / 2) {
-                ref = first;
-                for (int i = 0; i < index; i++) {
-                    ref = ref.next;
-                }
-            } else {
-                ref = last;
-                for (int i = size - 1; i > index; i--) {
-                    ref = ref.prev;
-                }
+        if (index < size / 2) {
+            ref = first;
+            for (int i = 0; i < index; i++) {
+                ref = ref.next;
             }
         } else {
-            throw new IndexOutOfBoundsException();
+            ref = last;
+            for (int i = size - 1; i > index; i--) {
+                ref = ref.prev;
+            }
         }
         return ref;
     }
